@@ -1,6 +1,13 @@
 import Item from '../entities/Item';
-import { Identifier } from '../entities/entity';
-import { INIT_LIST, initList, SYNC_LIST, syncList } from '../actions/list';
+import { Identifier } from '../entities/Entity';
+import {
+  INIT_LIST,
+  initList,
+  SYNC_LIST,
+  syncList,
+  TOGGLE_ITEM_CHECK,
+  toggleItemCheck
+} from '../actions/list';
 
 export interface State {
   items: Item[];
@@ -12,7 +19,10 @@ const initialState: State = {
   checkedItems: []
 };
 
-type Actions = ReturnType<typeof syncList> | ReturnType<typeof initList>;
+type Actions =
+  | ReturnType<typeof syncList>
+  | ReturnType<typeof initList>
+  | ReturnType<typeof toggleItemCheck>;
 
 export default function(state = initialState, action: Actions) {
   switch (action.type) {
@@ -27,6 +37,16 @@ export default function(state = initialState, action: Actions) {
       return {
         ...state,
         items
+      };
+    }
+    case TOGGLE_ITEM_CHECK: {
+      const { item } = action.payload;
+      const checkedItems = state.checkedItems.find(id => id.equal(item.id))
+        ? state.checkedItems.filter(id => !id.equal(item.id))
+        : state.checkedItems.concat(item.id);
+      return {
+        ...state,
+        checkedItems
       };
     }
     default:

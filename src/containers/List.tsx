@@ -17,7 +17,8 @@ export default connect(
   (state: State, props: RouteComponentProps<MatchParams>) => {
     return {
       listId: new Identifier<List>(props.match.params.id),
-      items: state.list.items
+      items: state.list.items,
+      checkedItems: state.list.checkedItems
     };
   },
   dispatch => {
@@ -28,8 +29,8 @@ export default connect(
       onAddItem: (name: string, listId: Identifier<List>) => {
         dispatch(addItem(name, listId));
       },
-      onToggleItemCheck: (item: Item, listId: Identifier<List>) => {
-        dispatch(toggleItemCheck(item, listId));
+      onToggleItemCheck: (item: Item) => {
+        dispatch(toggleItemCheck(item));
       }
     };
   }

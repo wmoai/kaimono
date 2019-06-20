@@ -25,7 +25,7 @@ export const addItem = (name: string, listId: Identifier<List>) => ({
 });
 
 export const TOGGLE_ITEM_CHECK = 'TOGGLE_ITEM_CHECK';
-export const toggleItemCheck = (item: Item, listId: Identifier<List>) => ({
+export const toggleItemCheck = (item: Item) => ({
   type: TOGGLE_ITEM_CHECK as typeof TOGGLE_ITEM_CHECK,
-  payload: { item, listId }
+  payload: { item }
 });

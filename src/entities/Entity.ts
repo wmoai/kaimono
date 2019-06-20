@@ -3,6 +3,10 @@ export class Identifier<T> {
     this.value = value;
   }
 
+  equal(id: Identifier<T>) {
+    return id.toValue() === this.value;
+  }
+
   toValue(): string {
     return this.value;
   }

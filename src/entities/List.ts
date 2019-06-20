@@ -1,7 +1,7 @@
 import { db } from '../firebase';
 import store from '../store';
 import Item, { documentToItem, newItem } from './Item';
-import { Identifier } from './entity';
+import { Identifier } from './Entity';
 
 import { syncList } from '../actions/list';
 

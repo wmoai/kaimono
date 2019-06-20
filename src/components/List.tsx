@@ -9,13 +9,21 @@ import { useSubscription } from '../hooks/list';
 interface Props {
   listId: Identifier<List>;
   items: Item[];
+  checkedItems: Identifier<Item>[];
   initList: () => void;
   onAddItem: (name: string, listId: Identifier<List>) => void;
-  onToggleItemCheck: (item: Item, listId: Identifier<List>) => void;
+  onToggleItemCheck: (item: Item) => void;
 }
 
 export default function List(props: Props) {
-  const { listId, items, initList, onAddItem, onToggleItemCheck } = props;
+  const {
+    listId,
+    items,
+    checkedItems,
+    initList,
+    onAddItem,
+    onToggleItemCheck
+  } = props;
   useSubscription(listId);
   React.useEffect(() => {
     initList();
@@ -43,8 +51,8 @@ export default function List(props: Props) {
             return (
               <li key={item.id.toValue()}>
                 <CheckButton
-                  onClick={() => onToggleItemCheck(item, listId)}
-                  isChecked={item.isChecked}
+                  onClick={() => onToggleItemCheck(item)}
+                  isChecked={!!checkedItems.find(id => id.equal(item.id))}
                 />
                 {item.name}
               </li>
