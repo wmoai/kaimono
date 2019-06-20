@@ -10,6 +10,7 @@ interface Props {
   id: Identifier<List>;
   items: Item[];
   checkedItems: Identifier<Item>[];
+  purchased: Item[];
   initList: (id: Identifier<List>) => void;
   onAddItem: (name: string) => void;
   onToggleItemCheck: (item: Item) => void;
@@ -21,6 +22,7 @@ export default function List(props: Props) {
     id,
     items,
     checkedItems,
+    purchased,
     initList,
     onAddItem,
     onToggleItemCheck,
@@ -47,7 +49,7 @@ export default function List(props: Props) {
         <input type="text" ref={itemInput} placeholder="品目を追加" />
         <input type="submit" />
       </form>
-      {items && (
+      {items.length > 0 && (
         <ul>
           {items.map(item => {
             return (
@@ -63,7 +65,14 @@ export default function List(props: Props) {
         </ul>
       )}
       {checkedItems.length > 0 && (
-        <button onClick={() => onPurchase()}>購入完了</button>
+        <button onClick={() => onPurchase()}>購入済にする</button>
+      )}
+      {purchased.length > 0 && (
+        <ul>
+          {purchased.map(item => {
+            return <li key={item.id.toValue()}>{item.name}</li>;
+          })}
+        </ul>
       )}
     </div>
   );

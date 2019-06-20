@@ -15,10 +15,12 @@ interface MatchParams {
 
 export default connect(
   (state: State, props: RouteComponentProps<MatchParams>) => {
+    const { items, checkedItems } = state.list;
     return {
       id: new Identifier<List>(props.match.params.id),
-      items: state.list.items,
-      checkedItems: state.list.checkedItems
+      items: items.filter(item => !item.isPurchased),
+      checkedItems: checkedItems,
+      purchased: items.filter(item => item.isPurchased)
     };
   },
   dispatch => {
