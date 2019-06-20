@@ -8,8 +8,9 @@ export const createList = () => ({
 });
 
 export const INIT_LIST = 'INIT_LIST';
-export const initList = () => ({
-  type: INIT_LIST as typeof INIT_LIST
+export const initList = (id: Identifier<List>) => ({
+  type: INIT_LIST as typeof INIT_LIST,
+  payload: { id }
 });
 
 export const SYNC_LIST = 'SYNC_LIST';
@@ -19,13 +20,18 @@ export const syncList = (items: Item[]) => ({
 });
 
 export const ADD_ITEM = 'ADD_ITEM';
-export const addItem = (name: string, listId: Identifier<List>) => ({
+export const addItem = (name: string) => ({
   type: ADD_ITEM as typeof ADD_ITEM,
-  payload: { name, listId }
+  payload: { name }
 });
 
 export const TOGGLE_ITEM_CHECK = 'TOGGLE_ITEM_CHECK';
 export const toggleItemCheck = (item: Item) => ({
   type: TOGGLE_ITEM_CHECK as typeof TOGGLE_ITEM_CHECK,
   payload: { item }
+});
+
+export const PURCHASE = 'PURCHASE';
+export const purchase = () => ({
+  type: PURCHASE as typeof PURCHASE
 });

@@ -54,12 +54,18 @@ export function addItem(name: string, listId: Identifier<List>) {
   timestamp(listId, now);
 }
 
-export function toggleItemCheck(item: Item, listId: Identifier<List>) {
-  db.collection('lists')
+export function purchase(
+  itemIds: Identifier<Item>[],
+  listId: Identifier<List>
+) {
+  const itemsRef = db
+    .collection('lists')
     .doc(listId.toValue())
-    .collection('items')
-    .doc(item.id.toValue())
-    .update({
-      isChecked: !item.isChecked
-    });
+    .collection('items');
+  const batch = db.batch();
+  itemIds.forEach(itemId => {
+    batch.update(itemsRef.doc(itemId.toValue()), { isPurchased: true });
+  });
+  batch.commit();
+  timestamp(listId);
 }

@@ -7,34 +7,36 @@ import CheckButton from './CheckButton';
 import { useSubscription } from '../hooks/list';
 
 interface Props {
-  listId: Identifier<List>;
+  id: Identifier<List>;
   items: Item[];
   checkedItems: Identifier<Item>[];
-  initList: () => void;
-  onAddItem: (name: string, listId: Identifier<List>) => void;
+  initList: (id: Identifier<List>) => void;
+  onAddItem: (name: string) => void;
   onToggleItemCheck: (item: Item) => void;
+  onPurchase: () => void;
 }
 
 export default function List(props: Props) {
   const {
-    listId,
+    id,
     items,
     checkedItems,
     initList,
     onAddItem,
-    onToggleItemCheck
+    onToggleItemCheck,
+    onPurchase
   } = props;
-  useSubscription(listId);
+  useSubscription(id);
   React.useEffect(() => {
-    initList();
-  }, [listId.toValue()]);
+    initList(id);
+  }, [id.toValue()]);
 
   const itemInput = React.useRef(null);
   const handleAddItem = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const target = itemInput.current;
     if (target) {
-      onAddItem(target.value, listId);
+      onAddItem(target.value);
       target.value = '';
     }
   };
@@ -59,6 +61,9 @@ export default function List(props: Props) {
             );
           })}
         </ul>
+      )}
+      {checkedItems.length > 0 && (
+        <button onClick={() => onPurchase()}>購入完了</button>
       )}
     </div>
   );
