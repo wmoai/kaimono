@@ -1,21 +1,21 @@
 import { Identifier } from '../entities/Entity';
-import List from '../entities/List';
+import ShoppingList from '../entities/ShoppingList';
 import Item from '../entities/Item';
 
-export const CREATE_LIST = 'CREATE_LIST';
-export const createList = () => ({
-  type: CREATE_LIST as typeof CREATE_LIST
+export const CREATE = 'CREATE';
+export const create = () => ({
+  type: CREATE as typeof CREATE
 });
 
-export const INIT_LIST = 'INIT_LIST';
-export const initList = (id: Identifier<List>) => ({
-  type: INIT_LIST as typeof INIT_LIST,
+export const INIT = 'INIT';
+export const init = (id: Identifier<ShoppingList>) => ({
+  type: INIT as typeof INIT,
   payload: { id }
 });
 
-export const SYNC_LIST = 'SYNC_LIST';
-export const syncList = (items: Item[]) => ({
-  type: SYNC_LIST as typeof SYNC_LIST,
+export const SYNC = 'SYNC';
+export const sync = (items: Item[]) => ({
+  type: SYNC as typeof SYNC,
   payload: { items }
 });
 

@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 
 import { Identifier } from '../entities/Entity';
-import List from '../entities/List';
-import { subscribeItems, unsubscribeItems } from '../entities/List';
+import ShoppingList from '../entities/ShoppingList';
+import { subscribeItems, unsubscribeItems } from '../entities/ShoppingList';
 
-export function useSubscription(id: Identifier<List>) {
+export function useSubscription(id: Identifier<ShoppingList>) {
   useEffect(() => {
     subscribeItems(id);
     return () => {

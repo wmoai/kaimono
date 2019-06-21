@@ -5,15 +5,15 @@ import Component from '../components/ShoppingList';
 import { State } from '../store';
 
 import { Identifier } from '../entities/Entity';
-import List from '../entities/List';
+import ShoppingList from '../entities/ShoppingList';
 import Item from '../entities/Item';
 import {
-  initList,
+  init,
   addItem,
   toggleItemCheck,
   purchase,
   deleteItem
-} from '../actions/list';
+} from '../actions/shoppingList';
 
 interface MatchParams {
   id: string;
@@ -21,9 +21,9 @@ interface MatchParams {
 
 export default connect(
   (state: State, props: RouteComponentProps<MatchParams>) => {
-    const { items, checkedItems } = state.list;
+    const { items, checkedItems } = state.shoppingList;
     return {
-      id: new Identifier<List>(props.match.params.id),
+      id: new Identifier<ShoppingList>(props.match.params.id),
       items: items.filter(item => !item.isPurchased),
       checkedItems: checkedItems,
       purchased: items.filter(item => item.isPurchased)
@@ -31,8 +31,8 @@ export default connect(
   },
   dispatch => {
     return {
-      initList: (id: Identifier<List>) => {
-        dispatch(initList(id));
+      initShoppingList: (id: Identifier<ShoppingList>) => {
+        dispatch(init(id));
       },
       onAddItem: (name: string) => {
         dispatch(addItem(name));

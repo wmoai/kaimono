@@ -1,12 +1,14 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-import list, { State as ListState } from './reducers/list';
+import shoppingList, {
+  State as ShoppingListState
+} from './reducers/shoppingList';
 
 import middleware from './middleware';
 export interface State {
-  list: ListState;
+  shoppingList: ShoppingListState;
 }
 
-const reducer = combineReducers({ list });
+const reducer = combineReducers({ shoppingList });
 const store = createStore(reducer, applyMiddleware(middleware));
 
 export default store;

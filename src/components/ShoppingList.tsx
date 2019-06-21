@@ -1,18 +1,18 @@
 import * as React from 'react';
 import { Identifier } from '../entities/Entity';
-import List from '../entities/List';
+import ShoppingList from '../entities/ShoppingList';
 import Item from '../entities/Item';
 
 import Items from './Items';
 import CheckButton from './Elements/CheckButton';
-import { useSubscription } from '../hooks/list';
+import { useSubscription } from '../hooks/shoppingList';
 
 interface Props {
-  id: Identifier<List>;
+  id: Identifier<ShoppingList>;
   items: Item[];
   checkedItems: Identifier<Item>[];
   purchased: Item[];
-  initList: (id: Identifier<List>) => void;
+  initShoppingList: (id: Identifier<ShoppingList>) => void;
   onAddItem: (name: string) => void;
   onToggleItemCheck: (item: Item) => void;
   onPurchase: () => void;
@@ -25,7 +25,7 @@ export default function ShoppingList(props: Props) {
     items,
     checkedItems,
     purchased,
-    initList,
+    initShoppingList,
     onAddItem,
     onToggleItemCheck,
     onPurchase,
@@ -33,7 +33,7 @@ export default function ShoppingList(props: Props) {
   } = props;
   useSubscription(id);
   React.useEffect(() => {
-    initList(id);
+    initShoppingList(id);
   }, [id.toValue()]);
 
   const itemInput = React.useRef(null);
