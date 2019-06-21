@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Identifier } from '../entities/Entity';
 import Item from '../entities/Item';
 
-import CheckButton from './CheckButton';
+import CheckButton from './Elements/CheckButton';
 
 interface Props {
   items: Item[];

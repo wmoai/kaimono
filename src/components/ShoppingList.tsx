@@ -4,7 +4,7 @@ import List from '../entities/List';
 import Item from '../entities/Item';
 
 import Items from './Items';
-import CheckButton from './CheckButton';
+import CheckButton from './Elements/CheckButton';
 import { useSubscription } from '../hooks/list';
 
 interface Props {
@@ -19,7 +19,7 @@ interface Props {
   onDeleteItem: (item: Item) => void;
 }
 
-export default function List(props: Props) {
+export default function ShoppingList(props: Props) {
   const {
     id,
     items,
@@ -50,7 +50,7 @@ export default function List(props: Props) {
     <div>
       <form onSubmit={e => handleAddItem(e)}>
         <input type="text" ref={itemInput} placeholder="品目を追加" />
-        <input type="submit" />
+        <input type="submit" value="追加" />
       </form>
       <Items
         items={items}

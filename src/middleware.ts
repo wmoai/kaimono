@@ -26,7 +26,7 @@ const middleware: Middleware = (store: MiddlewareAPI<Dispatch, State>) => (
   switch (action.type) {
     case CREATE_LIST: {
       const id = await List.create();
-      history.push(`/lists/${id}`);
+      history.push(`/shoppinglists/${id}`);
       return;
     }
     case ADD_ITEM: {

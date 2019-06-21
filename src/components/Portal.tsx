@@ -4,7 +4,7 @@ interface Props {
   onCreateList: () => void;
 }
 
-export default function Dashboard(props: Props) {
+export default function Portal(props: Props) {
   const handleCreate = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     props.onCreateList();

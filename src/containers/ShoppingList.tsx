@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
-import Component from '../components/List';
+import Component from '../components/ShoppingList';
 import { State } from '../store';
 
 import { Identifier } from '../entities/Entity';
