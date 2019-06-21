@@ -7,7 +7,13 @@ import { State } from '../store';
 import { Identifier } from '../entities/Entity';
 import List from '../entities/List';
 import Item from '../entities/Item';
-import { initList, addItem, toggleItemCheck, purchase } from '../actions/list';
+import {
+  initList,
+  addItem,
+  toggleItemCheck,
+  purchase,
+  deleteItem
+} from '../actions/list';
 
 interface MatchParams {
   id: string;
@@ -36,6 +42,9 @@ export default connect(
       },
       onPurchase: () => {
         dispatch(purchase());
+      },
+      onDeleteItem: (item: Item) => {
+        dispatch(deleteItem(item));
       }
     };
   }

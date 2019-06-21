@@ -35,3 +35,9 @@ export const PURCHASE = 'PURCHASE';
 export const purchase = () => ({
   type: PURCHASE as typeof PURCHASE
 });
+
+export const DELETE_ITEM = 'DELETE_ITEM';
+export const deleteItem = (item: Item) => ({
+  type: DELETE_ITEM as typeof DELETE_ITEM,
+  payload: { item }
+});

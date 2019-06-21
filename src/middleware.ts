@@ -4,9 +4,11 @@ import {
   CREATE_LIST,
   ADD_ITEM,
   PURCHASE,
+  DELETE_ITEM,
   createList,
   addItem,
-  purchase
+  purchase,
+  deleteItem
 } from './actions/list';
 import * as List from './entities/List';
 
@@ -15,7 +17,8 @@ import history from './history';
 type Actions =
   | ReturnType<typeof createList>
   | ReturnType<typeof addItem>
-  | ReturnType<typeof purchase>;
+  | ReturnType<typeof purchase>
+  | ReturnType<typeof deleteItem>;
 
 const middleware: Middleware = (store: MiddlewareAPI<Dispatch, State>) => (
   next: Dispatch
@@ -37,6 +40,12 @@ const middleware: Middleware = (store: MiddlewareAPI<Dispatch, State>) => (
       const { checkedItems, id } = state.list;
       List.purchase(checkedItems, id);
       break;
+    }
+    case DELETE_ITEM: {
+      const { item } = action.payload;
+      const state = store.getState();
+      List.delteItem(item, state.list.id);
+      return;
     }
   }
   return next(action);

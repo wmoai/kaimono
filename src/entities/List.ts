@@ -50,8 +50,10 @@ export function addItem(name: string, listId: Identifier<List>) {
   db.collection('lists')
     .doc(listId.toValue())
     .collection('items')
-    .add(newItem(name, now));
-  timestamp(listId, now);
+    .add(newItem(name, now))
+    .then(() => {
+      timestamp(listId, now);
+    });
 }
 
 export function purchase(
@@ -66,6 +68,18 @@ export function purchase(
   itemIds.forEach(itemId => {
     batch.update(itemsRef.doc(itemId.toValue()), { isPurchased: true });
   });
-  batch.commit();
-  timestamp(listId);
+  batch.commit().then(() => {
+    timestamp(listId);
+  });
+}
+
+export function delteItem(item: Item, listId: Identifier<List>) {
+  db.collection('lists')
+    .doc(listId.toValue())
+    .collection('items')
+    .doc(item.id.toValue())
+    .delete()
+    .then(() => {
+      timestamp(listId);
+    });
 }

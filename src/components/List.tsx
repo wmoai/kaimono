@@ -15,6 +15,7 @@ interface Props {
   onAddItem: (name: string) => void;
   onToggleItemCheck: (item: Item) => void;
   onPurchase: () => void;
+  onDeleteItem: (item: Item) => void;
 }
 
 export default function List(props: Props) {
@@ -26,7 +27,8 @@ export default function List(props: Props) {
     initList,
     onAddItem,
     onToggleItemCheck,
-    onPurchase
+    onPurchase,
+    onDeleteItem
   } = props;
   useSubscription(id);
   React.useEffect(() => {
@@ -59,14 +61,15 @@ export default function List(props: Props) {
                   isChecked={!!checkedItems.find(id => id.equal(item.id))}
                 />
                 {item.name}
+                <button onClick={() => onDeleteItem(item)}>×</button>
               </li>
             );
           })}
         </ul>
       )}
-      {checkedItems.length > 0 && (
-        <button onClick={() => onPurchase()}>購入済にする</button>
-      )}
+      <button onClick={() => onPurchase()} disabled={checkedItems.length == 0}>
+        購入済にする
+      </button>
       {purchased.length > 0 && (
         <ul>
           {purchased.map(item => {
