@@ -3,6 +3,7 @@ import { Identifier } from '../entities/Entity';
 import List from '../entities/List';
 import Item from '../entities/Item';
 
+import Items from './Items';
 import CheckButton from './CheckButton';
 import { useSubscription } from '../hooks/list';
 
@@ -51,32 +52,21 @@ export default function List(props: Props) {
         <input type="text" ref={itemInput} placeholder="品目を追加" />
         <input type="submit" />
       </form>
-      {items.length > 0 && (
-        <ul>
-          {items.map(item => {
-            return (
-              <li key={item.id.toValue()}>
-                <CheckButton
-                  onClick={() => onToggleItemCheck(item)}
-                  isChecked={!!checkedItems.find(id => id.equal(item.id))}
-                />
-                {item.name}
-                <button onClick={() => onDeleteItem(item)}>×</button>
-              </li>
-            );
-          })}
-        </ul>
-      )}
+      <Items
+        items={items}
+        checkedItems={checkedItems}
+        onCheck={item => onToggleItemCheck(item)}
+        onDelete={item => onDeleteItem(item)}
+      />
       <button onClick={() => onPurchase()} disabled={checkedItems.length == 0}>
         購入済にする
       </button>
-      {purchased.length > 0 && (
-        <ul>
-          {purchased.map(item => {
-            return <li key={item.id.toValue()}>{item.name}</li>;
-          })}
-        </ul>
-      )}
+      <Items
+        items={purchased}
+        checkedItems={checkedItems}
+        isPurchased={true}
+        onDelete={item => onDeleteItem(item)}
+      />
     </div>
   );
 }
