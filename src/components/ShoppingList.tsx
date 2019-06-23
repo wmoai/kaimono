@@ -4,7 +4,6 @@ import ShoppingList from '../entities/ShoppingList';
 import Item from '../entities/Item';
 
 import Items from './Items';
-import CheckButton from './Elements/CheckButton';
 import { useSubscription } from '../hooks/shoppingList';
 
 interface Props {
