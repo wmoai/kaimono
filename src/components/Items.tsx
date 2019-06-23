@@ -1,9 +1,11 @@
 import * as React from 'react';
+import * as dayjs from 'dayjs';
 import { Identifier } from '../entities/Entity';
 import Item from '../entities/Item';
 
 import ItemList from './elements/ItemList';
 import CheckButton from './elements/CheckButton';
+import PurchasedDate from './elements/PurchasedDate';
 
 interface Props {
   items: Item[];
@@ -30,6 +32,11 @@ export default function Items(props: Props) {
               />
             )}
             {item.name}
+            {isPurchased && item.purchasedAt && (
+              <PurchasedDate>
+                {dayjs(item.purchasedAt).format('YYYY/MM/DD HH:mm')}
+              </PurchasedDate>
+            )}
             <button onClick={() => onDelete(item)}>×</button>
           </li>
         );

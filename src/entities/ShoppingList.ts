@@ -69,14 +69,16 @@ export function purchase(
   itemIds: Identifier<Item>[],
   shoppingListId: Identifier<ShoppingList>
 ) {
+  const now = new Date();
   const batch = db.batch();
   itemIds.forEach(itemId => {
     batch.update(itemsCollection(shoppingListId).doc(itemId.toValue()), {
-      isPurchased: true
+      isPurchased: true,
+      purchasedAt: now
     });
   });
   batch.commit().then(() => {
-    timestamp(shoppingListId);
+    timestamp(shoppingListId, now);
   });
 }
 

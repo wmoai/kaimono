@@ -6,6 +6,7 @@ export default interface Item {
   name: string;
   isPurchased: boolean;
   createdAt: Date;
+  purchasedAt?: Date;
 }
 
 export function newItem(name: string, now: Date) {
@@ -22,6 +23,7 @@ export function documentToItem(doc: firestore.QueryDocumentSnapshot) {
     id: new Identifier<Item>(doc.id),
     name: data.name,
     isPurchased: data.isPurchased,
-    createdAt: data.createdAt
+    createdAt: data.createdAt.toDate(),
+    purchasedAt: data.purchasedAt ? data.purchasedAt.toDate() : null
   };
 }

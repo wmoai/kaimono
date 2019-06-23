@@ -15,7 +15,7 @@ export default styled.button<Props>`
     color: green;
   `
       : `
-    color: gainsboro;
+    color: lightgray;
   `}
   &::before {
     content: '✔';
