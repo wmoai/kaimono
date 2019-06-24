@@ -1,11 +1,11 @@
 import * as React from 'react';
 import * as dayjs from 'dayjs';
+import styled from 'styled-components';
 import { Identifier } from '../entities/Entity';
 import Item from '../entities/Item';
 
 import ItemList from './elements/ItemList';
 import CheckButton from './elements/CheckButton';
-import PurchasedDate from './elements/PurchasedDate';
 
 interface Props {
   items: Item[];
@@ -33,9 +33,9 @@ export default function Items(props: Props) {
             )}
             {item.name}
             {isPurchased && item.purchasedAt && (
-              <PurchasedDate>
+              <DateSpan>
                 {dayjs(item.purchasedAt).format('YYYY/MM/DD HH:mm')}
-              </PurchasedDate>
+              </DateSpan>
             )}
             <button onClick={() => onDelete(item)}>×</button>
           </li>
@@ -44,3 +44,8 @@ export default function Items(props: Props) {
     </ItemList>
   );
 }
+
+const DateSpan = styled.span`
+  font-size: 0.7em;
+  margin-left: 20px;
+`;

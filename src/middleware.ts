@@ -10,6 +10,7 @@ import {
   purchase,
   deleteItem
 } from './actions/shoppingList';
+import { CONFIRM, confirm } from './actions/modal';
 import * as ShoppingList from './entities/ShoppingList';
 
 import history from './history';
@@ -18,7 +19,8 @@ type Actions =
   | ReturnType<typeof create>
   | ReturnType<typeof addItem>
   | ReturnType<typeof purchase>
-  | ReturnType<typeof deleteItem>;
+  | ReturnType<typeof deleteItem>
+  | ReturnType<typeof confirm>;
 
 const middleware: Middleware = (store: MiddlewareAPI<Dispatch, State>) => (
   next: Dispatch
@@ -46,6 +48,12 @@ const middleware: Middleware = (store: MiddlewareAPI<Dispatch, State>) => (
       const state = store.getState();
       ShoppingList.delteItem(item, state.shoppingList.id);
       return;
+    }
+    case CONFIRM: {
+      const state = store.getState();
+      const { onConfirm } = state.modal;
+      onConfirm && onConfirm();
+      break;
     }
   }
   return next(action);

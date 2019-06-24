@@ -16,6 +16,7 @@ interface Props {
   onToggleItemCheck: (item: Item) => void;
   onPurchase: () => void;
   onDeleteItem: (item: Item) => void;
+  openModal: (contents: React.ReactNode, onConfirm: () => void) => void;
 }
 
 export default function ShoppingList(props: Props) {
@@ -28,7 +29,8 @@ export default function ShoppingList(props: Props) {
     onAddItem,
     onToggleItemCheck,
     onPurchase,
-    onDeleteItem
+    onDeleteItem,
+    openModal
   } = props;
   useSubscription(id);
   React.useEffect(() => {
@@ -44,11 +46,31 @@ export default function ShoppingList(props: Props) {
       target.value = '';
     }
   };
+  const handlePurchase = () => {
+    const checked = items.filter(item => {
+      return !!checkedItems.find(itemId => itemId.equal(item.id));
+    });
+    openModal(
+      <div>
+        以下のアイテムを購入済みにします。
+        <br />
+        よろしいですか？
+        <ul>
+          {checked.map(item => {
+            return <li key={item.id.toValue()}>{item.name}</li>;
+          })}
+        </ul>
+      </div>,
+      () => {
+        onPurchase();
+      }
+    );
+  };
 
   return (
     <div>
       <form onSubmit={e => handleAddItem(e)}>
-        <input type="text" ref={itemInput} placeholder="品目を追加" />
+        <input type="text" ref={itemInput} placeholder="買うものを追加" />
         <input type="submit" value="追加" />
       </form>
       <Items
@@ -57,7 +79,10 @@ export default function ShoppingList(props: Props) {
         onCheck={item => onToggleItemCheck(item)}
         onDelete={item => onDeleteItem(item)}
       />
-      <button onClick={() => onPurchase()} disabled={checkedItems.length == 0}>
+      <button
+        onClick={() => handlePurchase()}
+        disabled={checkedItems.length == 0}
+      >
         購入済にする
       </button>
       <Items

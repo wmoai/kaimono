@@ -14,6 +14,7 @@ import {
   purchase,
   deleteItem
 } from '../actions/shoppingList';
+import { open } from '../actions/modal';
 
 interface MatchParams {
   id: string;
@@ -45,6 +46,9 @@ export default connect(
       },
       onDeleteItem: (item: Item) => {
         dispatch(deleteItem(item));
+      },
+      openModal: (contents: React.ReactNode, onConfirm: () => void) => {
+        dispatch(open(contents, onConfirm));
       }
     };
   }
