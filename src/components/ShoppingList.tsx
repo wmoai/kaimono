@@ -66,6 +66,18 @@ export default function ShoppingList(props: Props) {
       }
     );
   };
+  const handleDeleteItem = (item: Item) => {
+    openModal(
+      <div>
+        {item.name}を削除します。
+        <br />
+        よろしいですか？
+      </div>,
+      () => {
+        onDeleteItem(item);
+      }
+    );
+  };
 
   return (
     <div>
@@ -77,7 +89,7 @@ export default function ShoppingList(props: Props) {
         items={items}
         checkedItems={checkedItems}
         onCheck={item => onToggleItemCheck(item)}
-        onDelete={item => onDeleteItem(item)}
+        onDelete={item => handleDeleteItem(item)}
       />
       <button
         onClick={() => handlePurchase()}
@@ -89,7 +101,7 @@ export default function ShoppingList(props: Props) {
         items={purchased}
         checkedItems={checkedItems}
         isPurchased={true}
-        onDelete={item => onDeleteItem(item)}
+        onDelete={item => handleDeleteItem(item)}
       />
     </div>
   );
