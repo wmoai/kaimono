@@ -1,11 +1,13 @@
 /* eslint-disable */
-var path = require('path');
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   entry: './src/index.tsx',
   output: {
     path: path.resolve('dist'),
-    filename: 'bundle.js'
+    filename: 'bundle.[hash].js'
   },
   module: {
     rules: [
@@ -22,6 +24,12 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './src/index.html'
+    }),
+    new CleanWebpackPlugin()
+  ],
   resolve: {
     extensions: ['.tsx', '.ts', '.js']
   },
