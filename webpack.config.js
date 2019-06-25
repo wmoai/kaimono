@@ -2,7 +2,6 @@
 var path = require('path');
 
 module.exports = {
-  mode: 'development',
   entry: './src/index.tsx',
   output: {
     path: path.resolve('dist'),
@@ -25,5 +24,8 @@ module.exports = {
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js']
+  },
+  devServer: {
+    contentBase: 'dist'
   }
 };
