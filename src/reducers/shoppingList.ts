@@ -6,10 +6,12 @@ import {
   init,
   SYNC,
   sync,
+  deleteItem,
   TOGGLE_ITEM_CHECK,
   toggleItemCheck,
   PURCHASE,
-  purchase
+  purchase,
+  DELETE_ITEM
 } from '../actions/shoppingList';
 
 export interface State {
@@ -28,7 +30,8 @@ type Actions =
   | ReturnType<typeof sync>
   | ReturnType<typeof init>
   | ReturnType<typeof toggleItemCheck>
-  | ReturnType<typeof purchase>;
+  | ReturnType<typeof purchase>
+  | ReturnType<typeof deleteItem>;
 
 export default function(state = initialState, action: Actions) {
   switch (action.type) {
@@ -61,6 +64,14 @@ export default function(state = initialState, action: Actions) {
       return {
         ...state,
         checkedItems: []
+      };
+    }
+    case DELETE_ITEM: {
+      const { item } = action.payload;
+      const checkedItems = state.checkedItems.filter(id => !id.equal(item.id));
+      return {
+        ...state,
+        checkedItems
       };
     }
     default:

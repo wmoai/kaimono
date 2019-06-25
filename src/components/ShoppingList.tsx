@@ -63,7 +63,7 @@ export default function ShoppingList(props: Props) {
   const handleDeleteItem = (item: Item) => {
     openModal(
       <div>
-        {item.name}を削除します。
+        <b>{item.name}</b>を削除します。
         <br />
         よろしいですか？
       </div>,
@@ -116,6 +116,7 @@ const Container = styled.div`
   flex-direction: column;
   height: 100%;
   padding-top: 15px;
+  box-sizing: border-box;
 `;
 
 const ScrollArea = styled.div`
@@ -131,14 +132,11 @@ const ListIndex = styled.h2`
   margin: 0;
   padding: 0 20px;
   font-size: 1em;
-  margin: 0;
-  padding: 0 15px;
-  font-size: 1em;
   font-weight: normal;
 `;
 
 const ListHeader = styled(ListIndex)`
-  min-height: 60px;
+  min-height: 70px;
   font-size: 1.4em;
 `;
 

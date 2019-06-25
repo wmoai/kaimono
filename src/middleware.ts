@@ -47,7 +47,7 @@ const middleware: Middleware = (store: MiddlewareAPI<Dispatch, State>) => (
       const { item } = action.payload;
       const state = store.getState();
       ShoppingList.delteItem(item, state.shoppingList.id);
-      return;
+      break;
     }
     case CONFIRM: {
       const state = store.getState();
