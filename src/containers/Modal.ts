@@ -9,14 +9,12 @@ export default connect(
     isOpen: state.modal.isOpen,
     contents: state.modal.contents
   }),
-  dispatch => {
-    return {
-      onCancel: () => {
-        dispatch(cancel());
-      },
-      onConfirm: () => {
-        dispatch(confirm());
-      }
-    };
-  }
+  dispatch => ({
+    onCancel: () => {
+      dispatch(cancel());
+    },
+    onConfirm: () => {
+      dispatch(confirm());
+    }
+  })
 )(Component);

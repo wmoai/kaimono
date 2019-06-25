@@ -1,0 +1,11 @@
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /shoppinglists/{list} {
+      allow get, write: if request.auth.uid != null;
+      allow list: if false;
+      match /items/{item} {
+        allow read, write: if request.auth.uid != null;
+      }
+    }
+  }
+}
