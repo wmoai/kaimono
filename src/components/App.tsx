@@ -19,31 +19,40 @@ export default function App(props: Props) {
   }, []);
 
   return (
-    <Container>
-      <GlobalStyle />
-      <Modal />
-      {isLoading ? (
-        <div>loading...</div>
-      ) : (
-        <Router history={history}>
-          <div>
+    <React.Fragment>
+      <Container>
+        <GlobalStyle />
+        {isLoading ? (
+          <div>loading...</div>
+        ) : (
+          <Router history={history}>
             <Route exact path="/" component={Portal} />
             <Route exact path="/shoppinglists/:id" component={ShoppingList} />
-          </div>
-        </Router>
-      )}
-    </Container>
+          </Router>
+        )}
+      </Container>
+      <Modal />
+    </React.Fragment>
   );
 }
 
 const GlobalStyle = createGlobalStyle`
+  html {
+    height: 100%;
+  }
   body {
+    height: 100%;
     margin: 0;
     padding: 0;
+  }
+  #root {
+    height: 100%;
   }
 `;
 
 const Container = styled.div`
   width: 800px;
-  margin: 0 auto 80px;
+  height: 100%;
+  margin: 0 auto;
+  word-break: break-word;
 `;

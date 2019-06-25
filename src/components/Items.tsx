@@ -84,6 +84,7 @@ const RemoveButton = styled.button`
   font-size: 0.8em;
   cursor: pointer;
   color: lightgray;
+  user-select: none;
   &:hover {
     color: crimson;
   }

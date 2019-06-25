@@ -12,6 +12,7 @@ export default styled.button<Props>`
   border-radius: 50%;
   cursor: pointer;
   color: white;
+  user-select: none;
   ${props =>
     props.isChecked
       ? `

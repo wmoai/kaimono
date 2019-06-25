@@ -1,9 +1,12 @@
 import * as React from 'react';
+import styled from 'styled-components';
 import { Identifier } from '../entities/Entity';
 import ShoppingList from '../entities/ShoppingList';
 import Item from '../entities/Item';
 
+import ItemForm from './ItemForm';
 import Items from './Items';
+import * as Icons from './elements/Icons';
 import { useSubscription } from '../hooks/shoppingList';
 
 interface Props {
@@ -37,15 +40,6 @@ export default function ShoppingList(props: Props) {
     initShoppingList(id);
   }, [id.toValue()]);
 
-  const itemInput = React.useRef(null);
-  const handleAddItem = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const target = itemInput.current;
-    if (target) {
-      onAddItem(target.value);
-      target.value = '';
-    }
-  };
   const handlePurchase = () => {
     const checked = items.filter(item => {
       return !!checkedItems.find(itemId => itemId.equal(item.id));
@@ -80,33 +74,107 @@ export default function ShoppingList(props: Props) {
   };
 
   return (
-    <div>
-      <form onSubmit={e => handleAddItem(e)}>
-        <input type="text" ref={itemInput} placeholder="買うものを追加" />
-        <button>
-          <i className="material-icons">add</i>
-        </button>
-      </form>
-      <button
-        onClick={() => handlePurchase()}
-        disabled={checkedItems.length == 0}
-      >
-        チェックしたアイテムを購入済にする
-      </button>
-      <h2>買うものリスト</h2>
-      <Items
-        items={items}
-        checkedItems={checkedItems}
-        onCheck={item => onToggleItemCheck(item)}
-        onDelete={item => handleDeleteItem(item)}
-      />
-      <h3>購入済み</h3>
-      <Items
-        items={purchased}
-        checkedItems={checkedItems}
-        isPurchased={true}
-        onDelete={item => handleDeleteItem(item)}
-      />
-    </div>
+    <Container>
+      <div>
+        <ItemForm onAddItem={name => onAddItem(name)} />
+        <ListHeader>
+          <ListTitle>買うものリスト</ListTitle>
+          <PurchaseButton
+            onClick={() => handlePurchase()}
+            disabled={checkedItems.length == 0}
+          >
+            <Icons.Check size={'1.2em'} />
+            購入済にする
+          </PurchaseButton>
+        </ListHeader>
+      </div>
+      <ScrollArea>
+        <Items
+          items={items}
+          checkedItems={checkedItems}
+          onCheck={item => onToggleItemCheck(item)}
+          onDelete={item => handleDeleteItem(item)}
+        />
+        {purchased.length > 0 && (
+          <React.Fragment>
+            <PurchasedHeader>購入済み</PurchasedHeader>
+            <Items
+              items={purchased}
+              checkedItems={checkedItems}
+              isPurchased={true}
+              onDelete={item => handleDeleteItem(item)}
+            />
+          </React.Fragment>
+        )}
+      </ScrollArea>
+    </Container>
   );
 }
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding-top: 15px;
+`;
+
+const ScrollArea = styled.div`
+  flex: 1;
+  overflow-y: scroll;
+  box-sizing: border-box;
+  padding-bottom: 40px;
+`;
+
+const ListIndex = styled.h2`
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0 20px;
+  font-size: 1em;
+  margin: 0;
+  padding: 0 15px;
+  font-size: 1em;
+  font-weight: normal;
+`;
+
+const ListHeader = styled(ListIndex)`
+  min-height: 60px;
+  font-size: 1.4em;
+`;
+
+const ListTitle = styled.div`
+  color: #444;
+`;
+
+const PurchaseButton = styled.button`
+  display: flex;
+  align-items: center;
+  height: 36px;
+  margin-left: auto;
+  padding: 0 10px;
+  border: none;
+  outline: none;
+  font-size: 0.7em;
+  color: white;
+  border-radius: 12px;
+  white-space: nowrap;
+  user-select: none;
+  &:disabled {
+    background-color: lightgray;
+  }
+  &:enabled {
+    background-color: mediumseagreen;
+    cursor: pointer;
+  }
+  & > ${Icons.Icon} {
+    margin-right: 5px;
+  }
+`;
+
+const PurchasedHeader = styled(ListIndex)`
+  font-size: 0.9em;
+  color: #666;
+  background-color: #f0f0f0;
+  height: 36px;
+  margin-top: 60px;
+`;

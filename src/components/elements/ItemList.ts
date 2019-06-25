@@ -8,7 +8,6 @@ export default styled.ul<Props>`
   list-style: none;
   margin: 0;
   padding: 0;
-  ${props => props.isPurchased && `color: gray;`}
   & > li {
     height: 50px;
     padding: 0 15px;
@@ -18,4 +17,15 @@ export default styled.ul<Props>`
       background-color: #fafafa;
     }
   }
+  ${props =>
+    props.isPurchased &&
+    `
+    color: gray;
+    background-color: #fcfcfc;
+    & > li {
+      &:hover {
+        background-color: #f6f6f6;
+      }
+    }
+  `}
 `;
