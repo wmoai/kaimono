@@ -115,13 +115,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-  @media (max-width: 799px) {
-    padding-top: 5px;
-  }
-  @media (min-width: 800px) {
-    padding-top: 15px;
-  }
-
+  padding-top: 15px;
   box-sizing: border-box;
 `;
 

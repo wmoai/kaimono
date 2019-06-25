@@ -26,6 +26,8 @@ module.exports = {
     extensions: ['.tsx', '.ts', '.js']
   },
   devServer: {
-    contentBase: 'dist'
+    contentBase: 'dist',
+    host: '0.0.0.0',
+    disableHostCheck: true
   }
 };
