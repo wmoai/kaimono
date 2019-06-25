@@ -115,7 +115,13 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding-top: 15px;
+  @media (max-width: 799px) {
+    padding-top: 5px;
+  }
+  @media (min-width: 800px) {
+    padding-top: 15px;
+  }
+
   box-sizing: border-box;
 `;
 
@@ -127,17 +133,18 @@ const ScrollArea = styled.div`
 `;
 
 const ListIndex = styled.h2`
-  display: flex;
-  align-items: center;
   margin: 0;
-  padding: 0 20px;
   font-size: 1em;
   font-weight: normal;
 `;
 
 const ListHeader = styled(ListIndex)`
-  min-height: 70px;
-  font-size: 1.4em;
+  @media (min-width: 800px) {
+    display: flex;
+    align-items: center;
+  }
+  font-size: 1.3em;
+  padding: 10px 15px;
 `;
 
 const ListTitle = styled.div`
@@ -148,11 +155,17 @@ const PurchaseButton = styled.button`
   display: flex;
   align-items: center;
   height: 36px;
-  margin-left: auto;
   padding: 0 10px;
+  @media (max-width: 799px) {
+    margin-top: 5px;
+  }
+  @media (min-width: 800px) {
+    margin: 0;
+    margin-left: auto;
+  }
   border: none;
   outline: none;
-  font-size: 0.7em;
+  font-size: 0.8em;
   color: white;
   border-radius: 12px;
   white-space: nowrap;
@@ -170,9 +183,9 @@ const PurchaseButton = styled.button`
 `;
 
 const PurchasedHeader = styled(ListIndex)`
+  padding: 8px 15px;
   font-size: 0.9em;
   color: #666;
   background-color: #f0f0f0;
-  height: 36px;
   margin-top: 60px;
 `;

@@ -51,7 +51,13 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const Container = styled.div`
-  width: 800px;
+  @media (max-width: 799px) {
+    width: 100%;
+  }
+
+  @media (min-width: 800px) {
+    width: 800px;
+  }
   height: 100%;
   margin: 0 auto;
   word-break: break-word;

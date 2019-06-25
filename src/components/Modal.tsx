@@ -11,12 +11,12 @@ interface Props {
 
 const style: ReactModal.Styles = {
   content: {
-    top: '5%',
+    top: '10%',
     left: '50%',
     right: 'auto',
     bottom: 'auto',
     transform: 'translateX(-50%)',
-    minWidth: 300,
+    minWidth: 260,
     maxWidth: '80%',
     maxHeight: '80%',
     boxSizing: 'border-box',
