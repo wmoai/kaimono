@@ -27,7 +27,14 @@ export default connect(
       id: new Identifier<ShoppingList>(props.match.params.id),
       items: items.filter(item => !item.isPurchased),
       checkedItems: checkedItems,
-      purchased: items.filter(item => item.isPurchased)
+      purchased: items
+        .filter(item => item.isPurchased)
+        .sort((a, b) => {
+          if (a.purchasedAt > b.purchasedAt) {
+            return -1;
+          }
+          return 1;
+        })
     };
   },
   dispatch => {

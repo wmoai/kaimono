@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Router, Route } from 'react-router-dom';
+import styled, { createGlobalStyle } from 'styled-components';
 
 import history from '../history';
 import Portal from '../containers/Portal';
@@ -18,16 +19,31 @@ export default function App(props: Props) {
   }, []);
 
   return (
-    <Router history={history}>
+    <Container>
+      <GlobalStyle />
+      <Modal />
       {isLoading ? (
         <div>loading...</div>
       ) : (
-        <div>
-          <Route exact path="/" component={Portal} />
-          <Route exact path="/shoppinglists/:id" component={ShoppingList} />
-        </div>
+        <Router history={history}>
+          <div>
+            <Route exact path="/" component={Portal} />
+            <Route exact path="/shoppinglists/:id" component={ShoppingList} />
+          </div>
+        </Router>
       )}
-      <Modal />
-    </Router>
+    </Container>
   );
 }
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    margin: 0;
+    padding: 0;
+  }
+`;
+
+const Container = styled.div`
+  width: 800px;
+  margin: 0 auto 80px;
+`;

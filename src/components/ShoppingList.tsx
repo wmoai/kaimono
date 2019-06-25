@@ -83,20 +83,24 @@ export default function ShoppingList(props: Props) {
     <div>
       <form onSubmit={e => handleAddItem(e)}>
         <input type="text" ref={itemInput} placeholder="買うものを追加" />
-        <input type="submit" value="追加" />
+        <button>
+          <i className="material-icons">add</i>
+        </button>
       </form>
+      <button
+        onClick={() => handlePurchase()}
+        disabled={checkedItems.length == 0}
+      >
+        チェックしたアイテムを購入済にする
+      </button>
+      <h2>買うものリスト</h2>
       <Items
         items={items}
         checkedItems={checkedItems}
         onCheck={item => onToggleItemCheck(item)}
         onDelete={item => handleDeleteItem(item)}
       />
-      <button
-        onClick={() => handlePurchase()}
-        disabled={checkedItems.length == 0}
-      >
-        購入済にする
-      </button>
+      <h3>購入済み</h3>
       <Items
         items={purchased}
         checkedItems={checkedItems}

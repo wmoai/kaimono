@@ -8,10 +8,14 @@ export default styled.ul<Props>`
   list-style: none;
   margin: 0;
   padding: 0;
-  ${props => props.isPurchased && `color: darkgray;`}
+  ${props => props.isPurchased && `color: gray;`}
   & > li {
-    &:nth-child(odd) {
-      background-color: whitesmoke;
+    height: 50px;
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+    &:hover {
+      background-color: #fafafa;
     }
   }
 `;

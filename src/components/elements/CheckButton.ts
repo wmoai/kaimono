@@ -5,19 +5,20 @@ interface Props {
 }
 
 export default styled.button<Props>`
+  width: 36px;
+  height: 36px;
   outline: none;
   border: none;
-  background-color: transparent;
-  font-size: 1.2em;
+  border-radius: 50%;
+  cursor: pointer;
+  color: white;
   ${props =>
     props.isChecked
       ? `
-    color: green;
+    background-color: mediumseagreen;
   `
       : `
-    color: lightgray;
+    background-color: gainsboro;
   `}
-  &::before {
-    content: '✔';
   }
 `;

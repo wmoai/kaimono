@@ -6,6 +6,7 @@ import Item from '../entities/Item';
 
 import ItemList from './elements/ItemList';
 import CheckButton from './elements/CheckButton';
+import * as Icons from './elements/Icons';
 
 interface Props {
   items: Item[];
@@ -23,21 +24,28 @@ export default function Items(props: Props) {
   return (
     <ItemList isPurchased={isPurchased}>
       {items.map(item => {
+        const isChecked = !!checkedItems.find(id => id.equal(item.id));
         return (
           <li key={item.id.toValue()}>
             {!isPurchased && (
               <CheckButton
                 onClick={() => onCheck && onCheck(item)}
-                isChecked={!!checkedItems.find(id => id.equal(item.id))}
-              />
+                isChecked={isChecked}
+              >
+                <Icons.Check size={'2em'} />
+              </CheckButton>
             )}
-            {item.name}
-            {isPurchased && item.purchasedAt && (
-              <DateSpan>
-                {dayjs(item.purchasedAt).format('YYYY/MM/DD HH:mm')}
-              </DateSpan>
-            )}
-            <button onClick={() => onDelete(item)}>×</button>
+            <ContentArea>
+              <NameSpan isChecked={isChecked}>{item.name}</NameSpan>
+              {isPurchased && item.purchasedAt && (
+                <DateSpan>
+                  {dayjs(item.purchasedAt).format('YYYY/MM/DD HH:mm')}
+                </DateSpan>
+              )}
+              <RemoveButton onClick={() => onDelete(item)}>
+                <Icons.Remove size={'1.5em'} />
+              </RemoveButton>
+            </ContentArea>
           </li>
         );
       })}
@@ -45,7 +53,38 @@ export default function Items(props: Props) {
   );
 }
 
+const ContentArea = styled.div`
+  display: flex;
+  align-items: center;
+  flex: 1;
+  height: 100%;
+  margin-left: 10px;
+  border-bottom: 1px solid gainsboro;
+`;
+
+const NameSpan = styled.span<{ isChecked?: boolean }>`
+  font-weight: ${props => (props.isChecked ? 'bold' : 'normal')};
+`;
+
 const DateSpan = styled.span`
   font-size: 0.7em;
-  margin-left: 20px;
+  margin-left: 30px;
+  &:before {
+    content: '―  ';
+  }
+`;
+
+const RemoveButton = styled.button`
+  width: 40px;
+  height: 40px;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  margin-left: auto;
+  font-size: 0.8em;
+  cursor: pointer;
+  color: lightgray;
+  &:hover {
+    color: crimson;
+  }
 `;

@@ -14,7 +14,11 @@ const style: ReactModal.Styles = {
     left: '50%',
     right: 'auto',
     bottom: 'auto',
-    transform: 'translate(-50%, -50%)'
+    transform: 'translate(-50%, -50%)',
+    maxWidth: '80%',
+    boxSizing: 'border-box',
+    wordBreak: 'break-word',
+    padding: '30px'
   }
 };
 
