@@ -71,5 +71,5 @@ const CancelButton = styled(Button)`
 
 const ConfirmButton = styled(Button)`
   color: ${COLORS.THEME.CLEAR};
-  background-color: ${COLORS.THEME.POSITIVE};
+  background-color: ${COLORS.THEME.MAIN};
 `;

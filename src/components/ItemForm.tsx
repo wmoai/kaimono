@@ -37,19 +37,22 @@ const Form = styled.form`
   align-items: center;
   height: 40px;
   margin: 0 5px;
-  border: 1px solid gainsboro;
+  border: 1px solid ${COLORS.THEME.DISABLED};
+  border-radius: 10px;
+  overflow: hidden;
 `;
 
 const ItemInput = styled.input`
-  flex: 1;
+  flex-grow: 1;
   height: 100%;
   padding: 0 15px;
   box-sizing: border-box;
   border: none;
   outline: none;
   font-size: 1em;
+  background-color: transparent;
   &::placeholder {
-    color: ${COLORS.THEME.DARK};
+    color: ${COLORS.THEME.DISABLED};
   }
 `;
 
@@ -59,5 +62,5 @@ const AddButton = styled.button`
   border: none;
   outline: none;
   color: ${COLORS.THEME.CLEAR};
-  background-color: ${COLORS.THEME.POSITIVE};
+  background-color: ${COLORS.THEME.MAIN};
 `;

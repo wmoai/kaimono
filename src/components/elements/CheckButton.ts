@@ -17,10 +17,11 @@ export default styled.button<Props>`
   cursor: pointer;
   color: ${COLORS.THEME.CLEAR};
   user-select: none;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
   ${props =>
     props.isChecked
       ? `
-    background-color: ${COLORS.THEME.POSITIVE};
+    background-color: ${COLORS.THEME.MAIN};
   `
       : `
     background-color: ${COLORS.THEME.DISABLED};

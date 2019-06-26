@@ -14,6 +14,7 @@ export default styled.ul<Props>`
     padding: 0 15px;
     display: flex;
     align-items: center;
+    box-sizing: border-box;
     &:hover {
       background-color: ${COLORS.THEME.SMOKE};
     }

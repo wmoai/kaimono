@@ -57,7 +57,7 @@ export default function Items(props: Props) {
 const ContentArea = styled.div`
   display: flex;
   align-items: center;
-  flex: 1;
+  flex-grow: 1;
   height: 100%;
   margin-left: 10px;
   border-bottom: 1px solid gainsboro;
@@ -89,4 +89,5 @@ const RemoveButton = styled.button`
   &:hover {
     color: ${COLORS.THEME.WARNING};
   }
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 `;

@@ -6,6 +6,7 @@ import Item from '../entities/Item';
 
 import * as COLORS from './colors';
 import ContentsContainer from './elements/ContentsContainer';
+import Header from './Header';
 import ItemForm from './ItemForm';
 import Items from './Items';
 import * as Icons from './elements/Icons';
@@ -76,40 +77,45 @@ export default function ShoppingList(props: Props) {
   };
 
   return (
-    <Container>
-      <div>
-        <ItemForm onAddItem={name => onAddItem(name)} />
-        <ListHeader>
-          <ListTitle>買うものリスト</ListTitle>
-          <PurchaseButton
-            onClick={() => handlePurchase()}
-            disabled={checkedItems.length == 0}
-          >
-            <Icons.Check size={'1.2em'} />
-            購入済にする
-          </PurchaseButton>
-        </ListHeader>
-      </div>
-      <ScrollArea>
-        <Items
-          items={items}
-          checkedItems={checkedItems}
-          onCheck={item => onToggleItemCheck(item)}
-          onDelete={item => handleDeleteItem(item)}
-        />
-        {purchased.length > 0 && (
-          <React.Fragment>
-            <PurchasedHeader>購入済み</PurchasedHeader>
-            <Items
-              items={purchased}
-              checkedItems={checkedItems}
-              isPurchased={true}
-              onDelete={item => handleDeleteItem(item)}
-            />
-          </React.Fragment>
-        )}
-      </ScrollArea>
-    </Container>
+    <React.Fragment>
+      <Header />
+      <Container>
+        <div>
+          <ItemForm onAddItem={name => onAddItem(name)} />
+          <ListHeader>
+            <ListTitle>買うものリスト</ListTitle>
+            {items.length > 0 && (
+              <PurchaseButton
+                onClick={() => handlePurchase()}
+                disabled={checkedItems.length == 0}
+              >
+                <Icons.Check size={'1.2em'} />
+                購入済にする
+              </PurchaseButton>
+            )}
+          </ListHeader>
+        </div>
+        <ScrollArea>
+          <Items
+            items={items}
+            checkedItems={checkedItems}
+            onCheck={item => onToggleItemCheck(item)}
+            onDelete={item => handleDeleteItem(item)}
+          />
+          {purchased.length > 0 && (
+            <React.Fragment>
+              <PurchasedHeader>購入済み</PurchasedHeader>
+              <Items
+                items={purchased}
+                checkedItems={checkedItems}
+                isPurchased={true}
+                onDelete={item => handleDeleteItem(item)}
+              />
+            </React.Fragment>
+          )}
+        </ScrollArea>
+      </Container>
+    </React.Fragment>
   );
 }
 
@@ -118,10 +124,10 @@ const Container = styled(ContentsContainer)`
   flex-direction: column;
   height: 100%;
   padding-top: 15px;
+  overflow-y: scroll;
 `;
 
 const ScrollArea = styled.div`
-  flex: 1;
   overflow-y: scroll;
   box-sizing: border-box;
   padding-bottom: 40px;
@@ -148,6 +154,7 @@ const ListHeader = styled(ListIndex)`
 const ListTitle = styled.div`
   color: ${COLORS.THEME.BLACK};
   padding: 5px 0;
+  flex-grow: 1;
 `;
 
 const PurchaseButton = styled.button`
@@ -161,7 +168,7 @@ const PurchaseButton = styled.button`
   }
   @media (min-width: 800px) {
     margin: 0;
-    margin-left: auto;
+    margin-left: 20px;
   }
   border: none;
   outline: none;
@@ -174,12 +181,13 @@ const PurchaseButton = styled.button`
     background-color: ${COLORS.THEME.DISABLED};
   }
   &:enabled {
-    background-color: ${COLORS.THEME.POSITIVE};
+    background-color: ${COLORS.THEME.MAIN};
     cursor: pointer;
   }
   & > ${Icons.Icon} {
     margin-right: 5px;
   }
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 `;
 
 const PurchasedHeader = styled(ListIndex)`
