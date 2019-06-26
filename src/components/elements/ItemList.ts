@@ -15,17 +15,17 @@ export default styled.ul<Props>`
     display: flex;
     align-items: center;
     &:hover {
-      background-color: ${COLORS.PALETTE.SMOKE};
+      background-color: ${COLORS.THEME.SMOKE};
     }
   }
   ${props =>
     props.isPurchased &&
     `
     color: gray;
-    background-color: ${COLORS.PALETTE.SMOKE};
+    background-color: ${COLORS.THEME.SMOKE};
     & > li {
       &:hover {
-        background-color: ${COLORS.PALETTE.SILVER};
+        background-color: ${COLORS.THEME.DARKSMOKE};
       }
     }
   `}

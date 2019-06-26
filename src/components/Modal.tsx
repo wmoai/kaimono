@@ -65,11 +65,11 @@ const Button = styled.button`
 `;
 
 const CancelButton = styled(Button)`
-  color: ${COLORS.PALETTE.BLACK};
-  background-color: ${COLORS.PALETTE.SILVER};
+  color: ${COLORS.THEME.DARK};
+  background-color: ${COLORS.THEME.DARKSMOKE};
 `;
 
 const ConfirmButton = styled(Button)`
-  color: ${COLORS.PALETTE.WHITE};
+  color: ${COLORS.THEME.CLEAR};
   background-color: ${COLORS.THEME.POSITIVE};
 `;

@@ -1,15 +1,22 @@
-export const PALETTE = {
+const PALETTE = {
   BLACK: '#444',
   WHITE: '#fff',
   BLUE: 'cornflowerblue',
   RED: 'crimson',
-  GRAY: 'lightgray',
+  DARK: 'dimgray',
+  GRAY: '#d0d0d0',
   LIGHTGRAY: '#f0f0f0',
   SILVER: '#f6f6f6',
   SMOKE: '#fcfcfc'
 };
 
 export const THEME = {
+  CLEAR: PALETTE.WHITE,
+  SMOKE: PALETTE.SMOKE,
+  DARKSMOKE: PALETTE.SILVER,
+  SHADOW: PALETTE.LIGHTGRAY,
+  DARK: PALETTE.DARK,
+  BLACK: PALETTE.BLACK,
   POSITIVE: PALETTE.BLUE,
   DISABLED: PALETTE.GRAY,
   WARNING: PALETTE.RED

@@ -146,7 +146,7 @@ const ListHeader = styled(ListIndex)`
 `;
 
 const ListTitle = styled.div`
-  color: ${COLORS.PALETTE.BLACK};
+  color: ${COLORS.THEME.BLACK};
   padding: 5px 0;
 `;
 
@@ -166,7 +166,7 @@ const PurchaseButton = styled.button`
   border: none;
   outline: none;
   font-size: 0.8em;
-  color: ${COLORS.PALETTE.WHITE};
+  color: ${COLORS.THEME.CLEAR};
   border-radius: 12px;
   white-space: nowrap;
   user-select: none;
@@ -185,7 +185,7 @@ const PurchaseButton = styled.button`
 const PurchasedHeader = styled(ListIndex)`
   padding: 8px 15px;
   font-size: 0.9em;
-  color: ${COLORS.PALETTE.BLACK};
-  background-color: ${COLORS.PALETTE.LIGHTGRAY};
+  color: ${COLORS.THEME.BLACK};
+  background-color: ${COLORS.THEME.SHADOW};
   margin-top: 60px;
 `;

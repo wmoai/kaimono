@@ -84,7 +84,7 @@ const RemoveButton = styled.button`
   margin-left: auto;
   font-size: 0.8em;
   cursor: pointer;
-  color: ${COLORS.PALETTE.GRAY};
+  color: ${COLORS.THEME.DISABLED};
   user-select: none;
   &:hover {
     color: ${COLORS.THEME.WARNING};

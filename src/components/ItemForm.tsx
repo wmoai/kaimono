@@ -49,7 +49,7 @@ const ItemInput = styled.input`
   outline: none;
   font-size: 1em;
   &::placeholder {
-    color: ${COLORS.PALETTE.GRAY};
+    color: ${COLORS.THEME.DARK};
   }
 `;
 
@@ -58,6 +58,6 @@ const AddButton = styled.button`
   height: 100%;
   border: none;
   outline: none;
-  color: ${COLORS.PALETTE.WHITE};
+  color: ${COLORS.THEME.CLEAR};
   background-color: ${COLORS.THEME.POSITIVE};
 `;
