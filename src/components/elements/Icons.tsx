@@ -2,7 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 
 interface Props {
-  size?: string | number;
+  size?: string;
 }
 
 export const Icon = styled.i.attrs(() => ({

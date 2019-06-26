@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { Identifier } from '../entities/Entity';
 import Item from '../entities/Item';
 
+import * as COLORS from './colors';
 import ItemList from './elements/ItemList';
 import CheckButton from './elements/CheckButton';
 import * as Icons from './elements/Icons';
@@ -32,7 +33,7 @@ export default function Items(props: Props) {
                 onClick={() => onCheck && onCheck(item)}
                 isChecked={isChecked}
               >
-                <Icons.Check size={'2em'} />
+                <Icons.Check size={'22px'} />
               </CheckButton>
             )}
             <ContentArea>
@@ -43,7 +44,7 @@ export default function Items(props: Props) {
                 </DateSpan>
               )}
               <RemoveButton onClick={() => onDelete(item)}>
-                <Icons.Remove size={'1.5em'} />
+                <Icons.Remove size={'18px'} />
               </RemoveButton>
             </ContentArea>
           </li>
@@ -83,9 +84,9 @@ const RemoveButton = styled.button`
   margin-left: auto;
   font-size: 0.8em;
   cursor: pointer;
-  color: lightgray;
+  color: ${COLORS.PALETTE.GRAY};
   user-select: none;
   &:hover {
-    color: crimson;
+    color: ${COLORS.THEME.WARNING};
   }
 `;

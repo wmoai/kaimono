@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import * as Icons from './elements/Icons';
+import * as COLORS from './colors';
 
 interface Props {
   onAddItem: (name: string) => void;
@@ -13,8 +14,11 @@ export default function ItemForm(props: Props) {
     e.preventDefault();
     const target = itemInput.current;
     if (target) {
-      onAddItem(target.value);
-      target.value = '';
+      const name = target.value.trim();
+      if (name !== '') {
+        onAddItem(target.value);
+        target.value = '';
+      }
     }
   };
 
@@ -22,7 +26,7 @@ export default function ItemForm(props: Props) {
     <Form onSubmit={e => handleAddItem(e)}>
       <ItemInput type="text" ref={itemInput} placeholder="買うものを追加" />
       <AddButton>
-        <Icons.Add size={'2.5em'} />
+        <Icons.Add size={'26px'} />
       </AddButton>
     </Form>
   );
@@ -45,7 +49,7 @@ const ItemInput = styled.input`
   outline: none;
   font-size: 1em;
   &::placeholder {
-    color: silver;
+    color: ${COLORS.PALETTE.GRAY};
   }
 `;
 
@@ -54,6 +58,6 @@ const AddButton = styled.button`
   height: 100%;
   border: none;
   outline: none;
-  color: white;
-  background-color: cornflowerblue;
+  color: ${COLORS.PALETTE.WHITE};
+  background-color: ${COLORS.THEME.POSITIVE};
 `;

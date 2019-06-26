@@ -4,10 +4,12 @@ import { Identifier } from '../entities/Entity';
 import ShoppingList from '../entities/ShoppingList';
 import Item from '../entities/Item';
 
+import * as COLORS from './colors';
+import ContentsContainer from './elements/ContentsContainer';
 import ItemForm from './ItemForm';
 import Items from './Items';
 import * as Icons from './elements/Icons';
-import { useSubscription } from '../hooks/shoppingList';
+import { useSubscription } from './hooks/shoppingList';
 
 interface Props {
   id: Identifier<ShoppingList>;
@@ -111,12 +113,11 @@ export default function ShoppingList(props: Props) {
   );
 }
 
-const Container = styled.div`
+const Container = styled(ContentsContainer)`
   display: flex;
   flex-direction: column;
   height: 100%;
   padding-top: 15px;
-  box-sizing: border-box;
 `;
 
 const ScrollArea = styled.div`
@@ -133,16 +134,20 @@ const ListIndex = styled.h2`
 `;
 
 const ListHeader = styled(ListIndex)`
+  @media (max-width: 799px) {
+    padding: 10px 15px 0 15px;
+  }
   @media (min-width: 800px) {
     display: flex;
     align-items: center;
+    padding: 10px 15px;
   }
   font-size: 1.3em;
-  padding: 10px 15px;
 `;
 
 const ListTitle = styled.div`
-  color: #444;
+  color: ${COLORS.PALETTE.BLACK};
+  padding: 5px 0;
 `;
 
 const PurchaseButton = styled.button`
@@ -151,7 +156,8 @@ const PurchaseButton = styled.button`
   height: 36px;
   padding: 0 10px;
   @media (max-width: 799px) {
-    margin-top: 5px;
+    padding: 0 20px;
+    margin: 5px auto;
   }
   @media (min-width: 800px) {
     margin: 0;
@@ -160,15 +166,15 @@ const PurchaseButton = styled.button`
   border: none;
   outline: none;
   font-size: 0.8em;
-  color: white;
+  color: ${COLORS.PALETTE.WHITE};
   border-radius: 12px;
   white-space: nowrap;
   user-select: none;
   &:disabled {
-    background-color: lightgray;
+    background-color: ${COLORS.THEME.DISABLED};
   }
   &:enabled {
-    background-color: mediumseagreen;
+    background-color: ${COLORS.THEME.POSITIVE};
     cursor: pointer;
   }
   & > ${Icons.Icon} {
@@ -179,7 +185,7 @@ const PurchaseButton = styled.button`
 const PurchasedHeader = styled(ListIndex)`
   padding: 8px 15px;
   font-size: 0.9em;
-  color: #666;
-  background-color: #f0f0f0;
+  color: ${COLORS.PALETTE.BLACK};
+  background-color: ${COLORS.PALETTE.LIGHTGRAY};
   margin-top: 60px;
 `;

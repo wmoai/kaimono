@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as ReactModal from 'react-modal';
 import styled from 'styled-components';
+import * as COLORS from './colors';
 
 interface Props {
   isOpen: boolean;
@@ -22,6 +23,9 @@ const style: ReactModal.Styles = {
     boxSizing: 'border-box',
     wordBreak: 'break-word',
     padding: '30px 30px 20px 30px'
+  },
+  overlay: {
+    backgroundColor: 'rgba(0, 0, 0, 0.4)'
   }
 };
 
@@ -61,11 +65,11 @@ const Button = styled.button`
 `;
 
 const CancelButton = styled(Button)`
-  color: dimgray;
-  background-color: whitesmoke;
+  color: ${COLORS.PALETTE.BLACK};
+  background-color: ${COLORS.PALETTE.SILVER};
 `;
 
 const ConfirmButton = styled(Button)`
-  color: white;
-  background-color: cornflowerblue;
+  color: ${COLORS.PALETTE.WHITE};
+  background-color: ${COLORS.THEME.POSITIVE};
 `;

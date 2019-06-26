@@ -20,17 +20,15 @@ export default function App(props: Props) {
 
   return (
     <React.Fragment>
-      <Container>
-        <GlobalStyle />
-        {isLoading ? (
-          <div>loading...</div>
-        ) : (
-          <Router history={history}>
-            <Route exact path="/" component={Portal} />
-            <Route exact path="/shoppinglists/:id" component={ShoppingList} />
-          </Router>
-        )}
-      </Container>
+      <GlobalStyle />
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <Router history={history}>
+          <Route exact path="/" component={Portal} />
+          <Route exact path="/shoppinglists/:id" component={ShoppingList} />
+        </Router>
+      )}
       <Modal />
     </React.Fragment>
   );
@@ -51,15 +49,13 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const Container = styled.div`
-  @media (max-width: 799px) {
-    width: 100%;
-  }
-
-  @media (min-width: 800px) {
-    width: 800px;
-  }
+const Loading = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
   height: 100%;
-  margin: 0 auto;
-  word-break: break-word;
+  &:before {
+    content: 'loading...';
+  }
 `;

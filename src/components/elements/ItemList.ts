@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import * as COLORS from '../colors';
 
 interface Props {
   isPurchased?: boolean;
@@ -14,17 +15,17 @@ export default styled.ul<Props>`
     display: flex;
     align-items: center;
     &:hover {
-      background-color: #fafafa;
+      background-color: ${COLORS.PALETTE.SMOKE};
     }
   }
   ${props =>
     props.isPurchased &&
     `
     color: gray;
-    background-color: #fcfcfc;
+    background-color: ${COLORS.PALETTE.SMOKE};
     & > li {
       &:hover {
-        background-color: #f6f6f6;
+        background-color: ${COLORS.PALETTE.SILVER};
       }
     }
   `}
