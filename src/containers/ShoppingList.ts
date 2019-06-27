@@ -9,6 +9,7 @@ import ShoppingList from '../entities/ShoppingList';
 import Item from '../entities/Item';
 import {
   init,
+  updateTitle,
   addItem,
   toggleItemCheck,
   purchase,
@@ -22,9 +23,10 @@ interface MatchParams {
 
 export default connect(
   (state: State, props: RouteComponentProps<MatchParams>) => {
-    const { items, checkedItems } = state.shoppingList;
+    const { title, items, checkedItems } = state.shoppingList;
     return {
       id: new Identifier<ShoppingList>(props.match.params.id),
+      title,
       items: items.filter(item => !item.isPurchased),
       checkedItems: checkedItems,
       purchased: items
@@ -44,6 +46,9 @@ export default connect(
       },
       onAddItem: (name: string) => {
         dispatch(addItem(name));
+      },
+      onUpdateTitle: (title: string) => {
+        dispatch(updateTitle(title));
       },
       onToggleItemCheck: (item: Item) => {
         dispatch(toggleItemCheck(item));

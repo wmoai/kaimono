@@ -13,10 +13,22 @@ export const init = (id: Identifier<ShoppingList>) => ({
   payload: { id }
 });
 
-export const SYNC = 'SHOPPING_LIST/SYNC';
-export const sync = (items: Item[]) => ({
-  type: SYNC as typeof SYNC,
+export const SYNC_INFO = 'SHOPPING_LIST/SYNC_INFO';
+export const syncInfo = (title: string) => ({
+  type: SYNC_INFO as typeof SYNC_INFO,
+  payload: { title }
+});
+
+export const SYNC_ITEMS = 'SHOPPING_LIST/SYNC_ITEMS';
+export const syncItems = (items: Item[]) => ({
+  type: SYNC_ITEMS as typeof SYNC_ITEMS,
   payload: { items }
+});
+
+export const UPDATE_TITLE = 'SHOPPING_LIST/UPDATE_TITLE';
+export const updateTitle = (title: string) => ({
+  type: UPDATE_TITLE as typeof UPDATE_TITLE,
+  payload: { title }
 });
 
 export const ADD_ITEM = 'SHOPPING_LIST/ADD_ITEM';

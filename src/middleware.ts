@@ -2,12 +2,14 @@ import { Middleware, MiddlewareAPI, Dispatch } from 'redux';
 import { State } from './store';
 import {
   CREATE,
-  ADD_ITEM,
-  PURCHASE,
-  DELETE_ITEM,
   create,
+  UPDATE_TITLE,
+  updateTitle,
+  ADD_ITEM,
   addItem,
+  PURCHASE,
   purchase,
+  DELETE_ITEM,
   deleteItem
 } from './actions/shoppingList';
 import { CONFIRM, confirm } from './actions/modal';
@@ -17,6 +19,7 @@ import history from './history';
 
 type Actions =
   | ReturnType<typeof create>
+  | ReturnType<typeof updateTitle>
   | ReturnType<typeof addItem>
   | ReturnType<typeof purchase>
   | ReturnType<typeof deleteItem>
@@ -29,6 +32,12 @@ const middleware: Middleware = (store: MiddlewareAPI<Dispatch, State>) => (
     case CREATE: {
       const id = await ShoppingList.create();
       history.push(`/shoppinglists/${id}`);
+      return;
+    }
+    case UPDATE_TITLE: {
+      const { title } = action.payload;
+      const state = store.getState();
+      ShoppingList.updateTitle(title, state.shoppingList.id);
       return;
     }
     case ADD_ITEM: {

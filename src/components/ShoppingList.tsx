@@ -12,12 +12,16 @@ import Items from './Items';
 import * as Icons from './elements/Icons';
 import { useSubscription } from './hooks/shoppingList';
 
+let debounce: number;
+
 interface Props {
   id: Identifier<ShoppingList>;
+  title: string;
   items: Item[];
   checkedItems: Identifier<Item>[];
   purchased: Item[];
   initShoppingList: (id: Identifier<ShoppingList>) => void;
+  onUpdateTitle: (title: string) => void;
   onAddItem: (name: string) => void;
   onToggleItemCheck: (item: Item) => void;
   onPurchase: () => void;
@@ -28,10 +32,12 @@ interface Props {
 export default function ShoppingList(props: Props) {
   const {
     id,
+    title,
     items,
     checkedItems,
     purchased,
     initShoppingList,
+    onUpdateTitle,
     onAddItem,
     onToggleItemCheck,
     onPurchase,
@@ -41,7 +47,7 @@ export default function ShoppingList(props: Props) {
   useSubscription(id);
   React.useEffect(() => {
     initShoppingList(id);
-  }, [id.toValue()]);
+  }, [id.toString()]);
 
   const handlePurchase = () => {
     const checked = items.filter(item => {
@@ -54,7 +60,7 @@ export default function ShoppingList(props: Props) {
         よろしいですか？
         <ul>
           {checked.map(item => {
-            return <li key={item.id.toValue()}>{item.name}</li>;
+            return <li key={item.id.toString()}>{item.name}</li>;
           })}
         </ul>
       </div>,
@@ -76,6 +82,19 @@ export default function ShoppingList(props: Props) {
     );
   };
 
+  const [titleBuffer, setTitleBuffer] = React.useState('');
+  const handleOnChangeTitle = (e: React.FormEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement;
+    setTitleBuffer(target.value);
+    clearTimeout(debounce);
+    debounce = setTimeout(() => {
+      onUpdateTitle(target.value);
+    }, 3000);
+  };
+  React.useEffect(() => {
+    setTitleBuffer(title);
+  }, [title]);
+
   return (
     <React.Fragment>
       <Header />
@@ -83,7 +102,15 @@ export default function ShoppingList(props: Props) {
         <div>
           <ItemForm onAddItem={name => onAddItem(name)} />
           <ListHeader>
-            <ListTitle>買うものリスト</ListTitle>
+            <ListTitle
+              value={titleBuffer}
+              onChange={e => handleOnChangeTitle(e)}
+              onKeyDown={e => {
+                if (e.keyCode === 13) {
+                  (e.target as HTMLElement).blur();
+                }
+              }}
+            />
             {items.length > 0 && (
               <PurchaseButton
                 onClick={() => handlePurchase()}
@@ -141,20 +168,24 @@ const ListIndex = styled.h2`
 
 const ListHeader = styled(ListIndex)`
   @media (max-width: 799px) {
-    padding: 10px 15px 0 15px;
+    padding: 10px 15px 0 0px;
   }
   @media (min-width: 800px) {
     display: flex;
     align-items: center;
-    padding: 10px 15px;
+    padding: 10px 15px 10px 0px;
   }
   font-size: 1.3em;
 `;
 
-const ListTitle = styled.div`
+const ListTitle = styled.input`
   color: ${COLORS.THEME.BLACK};
-  padding: 5px 0;
+  padding: 5px 15px;
   flex-grow: 1;
+  font-size: 1em;
+  border: none;
+  outline: none;
+  text-overflow: ellipsis;
 `;
 
 const PurchaseButton = styled.button`

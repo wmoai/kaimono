@@ -4,30 +4,35 @@ import { Identifier } from '../entities/Entity';
 import {
   INIT,
   init,
-  SYNC,
-  sync,
-  deleteItem,
+  SYNC_INFO,
+  syncInfo,
+  SYNC_ITEMS,
+  syncItems,
   TOGGLE_ITEM_CHECK,
   toggleItemCheck,
   PURCHASE,
   purchase,
-  DELETE_ITEM
+  DELETE_ITEM,
+  deleteItem
 } from '../actions/shoppingList';
 
 export interface State {
   id: Identifier<ShoppingList>;
+  title: string;
   items: Item[];
   checkedItems: Identifier<Item>[];
 }
 
 const initialState: State = {
   id: null,
+  title: '買うものリスト',
   items: [],
   checkedItems: []
 };
 
 type Actions =
-  | ReturnType<typeof sync>
+  | ReturnType<typeof syncInfo>
+  | ReturnType<typeof syncItems>
   | ReturnType<typeof init>
   | ReturnType<typeof toggleItemCheck>
   | ReturnType<typeof purchase>
@@ -38,12 +43,18 @@ export default function(state = initialState, action: Actions) {
     case INIT: {
       const { id } = action.payload;
       return {
-        id,
-        items: [],
-        checkedItems: []
+        ...initialState,
+        id
       };
     }
-    case SYNC: {
+    case SYNC_INFO: {
+      const { title } = action.payload;
+      return {
+        ...state,
+        title
+      };
+    }
+    case SYNC_ITEMS: {
       const { items } = action.payload;
       return {
         ...state,

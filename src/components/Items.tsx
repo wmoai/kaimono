@@ -27,7 +27,7 @@ export default function Items(props: Props) {
       {items.map(item => {
         const isChecked = !!checkedItems.find(id => id.equal(item.id));
         return (
-          <li key={item.id.toValue()}>
+          <li key={item.id.toString()}>
             {!isPurchased && (
               <CheckButton
                 onClick={() => onCheck && onCheck(item)}

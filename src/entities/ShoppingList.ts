@@ -3,10 +3,11 @@ import store from '../store';
 import Item, { documentToItem, newItem } from './Item';
 import { Identifier } from './Entity';
 
-import { sync } from '../actions/shoppingList';
+import { syncInfo, syncItems } from '../actions/shoppingList';
 
 export default interface ShoppingList {
   id: Identifier<ShoppingList>;
+  title: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -15,7 +16,7 @@ function shoppingListCollection() {
   return db.collection('shoppinglists');
 }
 function shoppingListDoc(id: Identifier<ShoppingList>) {
-  return shoppingListCollection().doc(id.toValue());
+  return shoppingListCollection().doc(id.toString());
 }
 function itemsCollection(shoppingListId: Identifier<ShoppingList>) {
   return shoppingListDoc(shoppingListId).collection('items');
@@ -24,12 +25,13 @@ function itemDocument(
   shoppingListId: Identifier<ShoppingList>,
   itemId: Identifier<Item>
 ) {
-  return itemsCollection(shoppingListId).doc(itemId.toValue());
+  return itemsCollection(shoppingListId).doc(itemId.toString());
 }
 
 export async function create() {
   const now = new Date();
   const ref = await shoppingListCollection().add({
+    title: '新しい買うものリスト',
     createdAt: now,
     updatedAt: now
   });
@@ -42,15 +44,37 @@ function timestamp(id: Identifier<ShoppingList>, now?: Date) {
   });
 }
 
-export function subscribeItems(id: Identifier<ShoppingList>) {
-  itemsCollection(id).onSnapshot(querySnapshot => {
-    const items: Item[] = querySnapshot.docs.map(doc => documentToItem(doc));
-    store.dispatch(sync(items));
+export function subscribe(id: Identifier<ShoppingList>) {
+  const unsubscribeInfo = shoppingListDoc(id).onSnapshot(doc => {
+    const data = doc.data();
+    const title =
+      data.title && data.title !== '' ? data.title : '買うものリスト';
+    store.dispatch(syncInfo(title));
   });
+  const unsubscribeItems = itemsCollection(id)
+    .orderBy('createdAt', 'desc')
+    .onSnapshot(querySnapshot => {
+      const items: Item[] = querySnapshot.docs.map(doc => documentToItem(doc));
+      store.dispatch(syncItems(items));
+    });
+
+  return () => {
+    unsubscribeInfo();
+    unsubscribeItems();
+  };
 }
 
-export function unsubscribeItems(id: Identifier<ShoppingList>) {
-  itemsCollection(id).onSnapshot(() => {});
+export function updateTitle(
+  title: string,
+  shoppingListId: Identifier<ShoppingList>
+) {
+  shoppingListDoc(shoppingListId)
+    .update({
+      title
+    })
+    .then(() => {
+      timestamp(shoppingListId);
+    });
 }
 
 export function addItem(
@@ -72,7 +96,7 @@ export function purchase(
   const now = new Date();
   const batch = db.batch();
   itemIds.forEach(itemId => {
-    batch.update(itemsCollection(shoppingListId).doc(itemId.toValue()), {
+    batch.update(itemsCollection(shoppingListId).doc(itemId.toString()), {
       isPurchased: true,
       purchasedAt: now
     });
