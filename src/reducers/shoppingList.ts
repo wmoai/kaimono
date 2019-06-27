@@ -4,6 +4,8 @@ import { Identifier } from '../entities/Entity';
 import {
   INIT,
   init,
+  CLEAR,
+  clear,
   SYNC_INFO,
   syncInfo,
   SYNC_ITEMS,
@@ -31,9 +33,10 @@ const initialState: State = {
 };
 
 type Actions =
+  | ReturnType<typeof init>
+  | ReturnType<typeof clear>
   | ReturnType<typeof syncInfo>
   | ReturnType<typeof syncItems>
-  | ReturnType<typeof init>
   | ReturnType<typeof toggleItemCheck>
   | ReturnType<typeof purchase>
   | ReturnType<typeof deleteItem>;
@@ -43,8 +46,13 @@ export default function(state = initialState, action: Actions) {
     case INIT: {
       const { id } = action.payload;
       return {
-        ...initialState,
+        ...state,
         id
+      };
+    }
+    case CLEAR: {
+      return {
+        ...initialState
       };
     }
     case SYNC_INFO: {

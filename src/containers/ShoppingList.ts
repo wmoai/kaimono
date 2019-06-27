@@ -9,6 +9,7 @@ import ShoppingList from '../entities/ShoppingList';
 import Item from '../entities/Item';
 import {
   init,
+  clear,
   updateTitle,
   addItem,
   toggleItemCheck,
@@ -43,6 +44,9 @@ export default connect(
     return {
       initShoppingList: (id: Identifier<ShoppingList>) => {
         dispatch(init(id));
+      },
+      clear: () => {
+        dispatch(clear());
       },
       onAddItem: (name: string) => {
         dispatch(addItem(name));

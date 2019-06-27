@@ -21,6 +21,7 @@ interface Props {
   checkedItems: Identifier<Item>[];
   purchased: Item[];
   initShoppingList: (id: Identifier<ShoppingList>) => void;
+  clear: () => void;
   onUpdateTitle: (title: string) => void;
   onAddItem: (name: string) => void;
   onToggleItemCheck: (item: Item) => void;
@@ -37,6 +38,7 @@ export default function ShoppingList(props: Props) {
     checkedItems,
     purchased,
     initShoppingList,
+    clear,
     onUpdateTitle,
     onAddItem,
     onToggleItemCheck,
@@ -47,6 +49,9 @@ export default function ShoppingList(props: Props) {
   useSubscription(id);
   React.useEffect(() => {
     initShoppingList(id);
+    return () => {
+      clear();
+    };
   }, [id.toString()]);
 
   const handlePurchase = () => {

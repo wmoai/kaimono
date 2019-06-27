@@ -13,6 +13,11 @@ export const init = (id: Identifier<ShoppingList>) => ({
   payload: { id }
 });
 
+export const CLEAR = 'SHOPPING_LIST/CLEAR';
+export const clear = () => ({
+  type: CLEAR as typeof CLEAR
+});
+
 export const SYNC_INFO = 'SHOPPING_LIST/SYNC_INFO';
 export const syncInfo = (title: string) => ({
   type: SYNC_INFO as typeof SYNC_INFO,
