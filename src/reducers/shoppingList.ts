@@ -25,7 +25,7 @@ export interface State {
 
 const initialState: State = {
   id: null,
-  title: '買うものリスト',
+  title: '',
   items: [],
   checkedItems: []
 };

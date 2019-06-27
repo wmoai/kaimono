@@ -2,15 +2,26 @@ import * as React from 'react';
 import styled from 'styled-components';
 import * as COLORS from './colors';
 
+import { Link } from 'react-router-dom';
+import ContentContainer from './elements/ContentsContainer';
+import BrowseHistory from '../entities/BrowseHistory';
+
 interface Props {
+  browseHistory: BrowseHistory[];
+  loadBrowseHistory: () => void;
   onCreateShoppingList: () => void;
 }
 
 export default function Portal(props: Props) {
+  const { browseHistory, loadBrowseHistory, onCreateShoppingList } = props;
   const handleCreate = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    props.onCreateShoppingList();
+    onCreateShoppingList();
   };
+
+  React.useEffect(() => {
+    loadBrowseHistory();
+  }, []);
 
   return (
     <div>
@@ -20,6 +31,17 @@ export default function Portal(props: Props) {
           <CreateButton>買うものリストを作成</CreateButton>
         </form>
       </TopContainer>
+      <ContentContainer>
+        <ul>
+          {browseHistory.map(entry => (
+            <li key={entry.id.toString()}>
+              <Link to={`/shoppinglists/${entry.id.toString()}`}>
+                {entry.title}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </ContentContainer>
     </div>
   );
 }

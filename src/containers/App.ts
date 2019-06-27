@@ -1,7 +1,7 @@
 import Component from '../components/App';
 import { connect } from 'react-redux';
 import { State } from '../store';
-import { auth } from '../firebase';
+import { auth } from '../services/firebase';
 import { login } from '../actions/app';
 
 export default connect(

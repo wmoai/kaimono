@@ -1,4 +1,4 @@
-import { db } from '../firebase';
+import { db } from '../services/firebase';
 import store from '../store';
 import Item, { documentToItem, newItem } from './Item';
 import { Identifier } from './Entity';

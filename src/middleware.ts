@@ -10,12 +10,15 @@ import {
   PURCHASE,
   purchase,
   DELETE_ITEM,
-  deleteItem
+  deleteItem,
+  syncInfo,
+  SYNC_INFO
 } from './actions/shoppingList';
 import { CONFIRM, confirm } from './actions/modal';
 import * as ShoppingList from './entities/ShoppingList';
 
 import history from './history';
+import * as browseHistory from './entities/BrowseHistory';
 
 type Actions =
   | ReturnType<typeof create>
@@ -23,6 +26,7 @@ type Actions =
   | ReturnType<typeof addItem>
   | ReturnType<typeof purchase>
   | ReturnType<typeof deleteItem>
+  | ReturnType<typeof syncInfo>
   | ReturnType<typeof confirm>;
 
 const middleware: Middleware = (store: MiddlewareAPI<Dispatch, State>) => (
@@ -56,6 +60,12 @@ const middleware: Middleware = (store: MiddlewareAPI<Dispatch, State>) => (
       const { item } = action.payload;
       const state = store.getState();
       ShoppingList.delteItem(item, state.shoppingList.id);
+      break;
+    }
+    case SYNC_INFO: {
+      const { title } = action.payload;
+      const state = store.getState();
+      browseHistory.set(state.shoppingList.id, title);
       break;
     }
     case CONFIRM: {
