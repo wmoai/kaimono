@@ -116,3 +116,18 @@ export function delteItem(
       timestamp(shoppingListId);
     });
 }
+
+export function deleteAllPurchasedItems(
+  shoppingListId: Identifier<ShoppingList>
+) {
+  itemsCollection(shoppingListId)
+    .where('isPurchased', '==', true)
+    .get()
+    .then(querySnapshot => {
+      const batch = db.batch();
+      querySnapshot.forEach(doc => {
+        batch.delete(doc.ref);
+      });
+      return batch.commit();
+    });
+}

@@ -14,7 +14,8 @@ import {
   addItem,
   toggleItemCheck,
   purchase,
-  deleteItem
+  deleteItem,
+  deleteAllPurchasedItems
 } from '../actions/shoppingList';
 import { open } from '../actions/modal';
 
@@ -62,6 +63,9 @@ export default connect(
       },
       onDeleteItem: (item: Item) => {
         dispatch(deleteItem(item));
+      },
+      onDeleteAllPurchasedItems: () => {
+        dispatch(deleteAllPurchasedItems());
       },
       openModal: (contents: React.ReactNode, onConfirm: () => void) => {
         dispatch(open(contents, onConfirm));

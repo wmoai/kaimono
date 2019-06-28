@@ -11,6 +11,8 @@ import {
   purchase,
   DELETE_ITEM,
   deleteItem,
+  DELETE_ALL_PURCHAED_ITEMS,
+  deleteAllPurchasedItems,
   syncInfo,
   SYNC_INFO
 } from './actions/shoppingList';
@@ -27,6 +29,7 @@ type Actions =
   | ReturnType<typeof addItem>
   | ReturnType<typeof purchase>
   | ReturnType<typeof deleteItem>
+  | ReturnType<typeof deleteAllPurchasedItems>
   | ReturnType<typeof syncInfo>
   | ReturnType<typeof confirm>;
 
@@ -62,6 +65,11 @@ const middleware: Middleware = (store: MiddlewareAPI<Dispatch, State>) => (
       const state = store.getState();
       ShoppingList.delteItem(item, state.shoppingList.id);
       break;
+    }
+    case DELETE_ALL_PURCHAED_ITEMS: {
+      const state = store.getState();
+      ShoppingList.deleteAllPurchasedItems(state.shoppingList.id);
+      return;
     }
     case SYNC_INFO: {
       const { title } = action.payload;

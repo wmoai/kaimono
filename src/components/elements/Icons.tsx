@@ -23,3 +23,7 @@ export const Remove = (props: Props) => {
 export const Add = (props: Props) => {
   return <Icon {...props}>add</Icon>;
 };
+
+export const TrashCan = (props: Props) => {
+  return <Icon {...props}>delete</Icon>;
+};

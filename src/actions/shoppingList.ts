@@ -58,3 +58,9 @@ export const deleteItem = (item: Item) => ({
   type: DELETE_ITEM as typeof DELETE_ITEM,
   payload: { item }
 });
+
+export const DELETE_ALL_PURCHAED_ITEMS =
+  'SHOPPING_LIST/DELETE_ALL_PURCHAED_ITEMS';
+export const deleteAllPurchasedItems = () => ({
+  type: DELETE_ALL_PURCHAED_ITEMS as typeof DELETE_ALL_PURCHAED_ITEMS
+});

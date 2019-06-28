@@ -27,6 +27,7 @@ interface Props {
   onToggleItemCheck: (item: Item) => void;
   onPurchase: () => void;
   onDeleteItem: (item: Item) => void;
+  onDeleteAllPurchasedItems: () => void;
   openModal: (contents: React.ReactNode, onConfirm: () => void) => void;
 }
 
@@ -44,6 +45,7 @@ export default function ShoppingList(props: Props) {
     onToggleItemCheck,
     onPurchase,
     onDeleteItem,
+    onDeleteAllPurchasedItems,
     openModal
   } = props;
   useSubscription(id);
@@ -61,8 +63,6 @@ export default function ShoppingList(props: Props) {
     openModal(
       <div>
         以下のアイテムを購入済みにします。
-        <br />
-        よろしいですか？
         <ul>
           {checked.map(item => {
             return <li key={item.id.toString()}>{item.name}</li>;
@@ -78,13 +78,16 @@ export default function ShoppingList(props: Props) {
     openModal(
       <div>
         <b>{item.name}</b>を削除します。
-        <br />
-        よろしいですか？
       </div>,
       () => {
         onDeleteItem(item);
       }
     );
+  };
+  const handleDeleteAllPurchaedItems = () => {
+    openModal(<div>購入済みのアイテムを全て削除します</div>, () => {
+      onDeleteAllPurchasedItems();
+    });
   };
 
   const [titleBuffer, setTitleBuffer] = React.useState('');
@@ -136,7 +139,12 @@ export default function ShoppingList(props: Props) {
           />
           {purchased.length > 0 && (
             <React.Fragment>
-              <PurchasedHeader>購入済み</PurchasedHeader>
+              <PurchasedHeader>
+                <span>購入済み</span>
+                <DeleteAllButton onClick={() => handleDeleteAllPurchaedItems()}>
+                  <Icons.TrashCan size={'20px'} />
+                </DeleteAllButton>
+              </PurchasedHeader>
               <Items
                 items={purchased}
                 checkedItems={checkedItems}
@@ -165,13 +173,13 @@ const ScrollArea = styled.div`
   padding-bottom: 40px;
 `;
 
-const ListIndex = styled.h2`
+const SectionHeader = styled.div`
   margin: 0;
   font-size: 1em;
   font-weight: normal;
 `;
 
-const ListHeader = styled(ListIndex)`
+const ListHeader = styled(SectionHeader)`
   @media (max-width: 799px) {
     padding: 10px 15px 0 0px;
   }
@@ -226,10 +234,29 @@ const PurchaseButton = styled.button`
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 `;
 
-const PurchasedHeader = styled(ListIndex)`
-  padding: 8px 15px;
+const PurchasedHeader = styled(SectionHeader)`
+  display: flex;
+  align-items: center;
   font-size: 0.9em;
   color: ${COLORS.THEME.BLACK};
   background-color: ${COLORS.THEME.SHADOW};
   margin-top: 60px;
+  & > span {
+    padding: 8px 15px;
+  }
+`;
+
+const DeleteAllButton = styled.button`
+  width: 40px;
+  height: 30px;
+  margin-left: auto;
+  margin-right: 15px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: ${COLORS.THEME.DISABLED};
+  &:hover {
+    color: ${COLORS.THEME.WARNING};
+  }
+  cursor: pointer;
 `;
