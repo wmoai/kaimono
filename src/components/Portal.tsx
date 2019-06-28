@@ -5,6 +5,7 @@ import * as COLORS from './colors';
 import { Link } from 'react-router-dom';
 import ContentContainer from './elements/ContentsContainer';
 import BrowseHistory from '../entities/BrowseHistory';
+import { shoppingListPath } from './App';
 
 interface Props {
   browseHistory: BrowseHistory[];
@@ -32,15 +33,18 @@ export default function Portal(props: Props) {
         </form>
       </TopContainer>
       <ContentContainer>
-        <ul>
-          {browseHistory.map(entry => (
-            <li key={entry.id.toString()}>
-              <Link to={`/shoppinglists/${entry.id.toString()}`}>
-                {entry.title}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        {browseHistory && browseHistory.length > 0 && (
+          <React.Fragment>
+            <HistoryList>
+              <h2>閲覧した買うものリスト</h2>
+              {browseHistory.map(entry => (
+                <li key={entry.id.toString()}>
+                  <Link to={shoppingListPath(entry.id)}>{entry.title}</Link>
+                </li>
+              ))}
+            </HistoryList>
+          </React.Fragment>
+        )}
       </ContentContainer>
     </div>
   );
@@ -74,4 +78,15 @@ const CreateButton = styled.button`
   border: 3px solid ${COLORS.THEME.MAIN_LIGHT};
   border-radius: 20px;
   cursor: pointer;
+`;
+
+const HistoryList = styled.ul`
+  list-style: none;
+  padidng: 0;
+  margin-top: 40px;
+  & > h2 {
+    font-size: 1.2em;
+    margin: 0;
+    color: ${COLORS.THEME.DARK};
+  }
 `;

@@ -35,7 +35,7 @@ export async function create() {
     createdAt: now,
     updatedAt: now
   });
-  return ref.id;
+  return new Identifier<ShoppingList>(ref.id);
 }
 
 function timestamp(id: Identifier<ShoppingList>, now?: Date) {

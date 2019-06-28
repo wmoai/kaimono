@@ -17,6 +17,7 @@ import {
 import { CONFIRM, confirm } from './actions/modal';
 import * as ShoppingList from './entities/ShoppingList';
 
+import { shoppingListPath } from './components/App';
 import history from './history';
 import * as browseHistory from './entities/BrowseHistory';
 
@@ -35,7 +36,7 @@ const middleware: Middleware = (store: MiddlewareAPI<Dispatch, State>) => (
   switch (action.type) {
     case CREATE: {
       const id = await ShoppingList.create();
-      history.push(`/shoppinglists/${id}`);
+      history.push(shoppingListPath(id));
       return;
     }
     case UPDATE_TITLE: {

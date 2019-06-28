@@ -12,6 +12,8 @@ interface Props {
 
 const style: ReactModal.Styles = {
   content: {
+    display: 'flex',
+    flexDirection: 'column',
     top: '10%',
     left: '50%',
     right: 'auto',
@@ -22,7 +24,7 @@ const style: ReactModal.Styles = {
     maxHeight: '80%',
     boxSizing: 'border-box',
     wordBreak: 'break-word',
-    padding: '30px 30px 20px 30px'
+    padding: '0'
   },
   overlay: {
     backgroundColor: 'rgba(0, 0, 0, 0.4)'
@@ -38,7 +40,7 @@ export default function Modal(props: Props) {
       onRequestClose={() => onCancel()}
       style={style}
     >
-      {contents}
+      <Container>{contents}</Container>
       <Footer>
         <CancelButton onClick={() => onCancel()}>キャンセル</CancelButton>
         <ConfirmButton onClick={() => onConfirm()}>確認</ConfirmButton>
@@ -47,11 +49,17 @@ export default function Modal(props: Props) {
   );
 }
 
+const Container = styled.div`
+  padding: 30px 30px 20px;
+  overflow-y: scroll;
+  flex: 1;
+`;
+
 const Footer = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  margin-top: 30px;
+  margin: 0 30px 20px;
 `;
 
 const Button = styled.button`

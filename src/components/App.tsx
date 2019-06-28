@@ -2,14 +2,21 @@ import * as React from 'react';
 import { Router, Route } from 'react-router-dom';
 import styled, { createGlobalStyle } from 'styled-components';
 
+import { Identifier } from '../entities/Entity';
+import ShoppingList from '../entities/ShoppingList';
+
 import history from '../history';
-import Portal from '../containers/Portal';
-import ShoppingList from '../containers/ShoppingList';
+import PortalPage from '../containers/Portal';
+import ShoppingListPage from '../containers/ShoppingList';
 import Modal from '../containers/Modal';
 
 interface Props {
   isLoading: boolean;
   initializeApp: () => void;
+}
+
+export function shoppingListPath(id: Identifier<ShoppingList>) {
+  return `/lists/${id.toString()}`;
 }
 
 export default function App(props: Props) {
@@ -25,8 +32,8 @@ export default function App(props: Props) {
         <Loading />
       ) : (
         <Router history={history}>
-          <Route exact path="/" component={Portal} />
-          <Route exact path="/shoppinglists/:id" component={ShoppingList} />
+          <Route exact path="/" component={PortalPage} />
+          <Route exact path="/lists/:id" component={ShoppingListPage} />
         </Router>
       )}
       <Modal />
